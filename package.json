@@ -4,7 +4,9 @@
   "description": "Form filling just got faster, run regular users to power users!",
   "main": "ika.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "build": "babel ika.js ika.dom.js -o build/ika.min.js && cleancss ika.css -o build/ika.min.css",
+    "demo": "cp build/* demo/"
   },
   "keywords": [
     "ika",
@@ -17,6 +19,10 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "jest": "^25.2.7"
+    "@babel/preset-env": "^7.9.0",
+    "babel-preset-minify": "^0.5.1",
+    "clean-css-cli": "^4.3.0",
+    "jest": "^25.2.7",
+    "uglify-js": "^3.8.1"
   }
 }
