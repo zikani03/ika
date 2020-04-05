@@ -85,5 +85,6 @@ class Ika {
     }
 }
 
-
-module.exports = Ika;
+if (!window) {
+    module.exports = Ika;
+}

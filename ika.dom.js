@@ -34,7 +34,6 @@
 
             for (var [el, value] of parsed) {
                 var elType = el.getAttribute("type");
-                console.log(elType)
                 if (elType == "radio" || elType == "checkbox") {
                     if (value && (value == "0" || value.toLowerCase() == "n")) {
                         el.removeAttribute("checked");
