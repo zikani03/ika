@@ -5,7 +5,7 @@
   "main": "ika.js",
   "scripts": {
     "test": "jest",
-    "build": "babel ika.js ika.dom.js -o build/ika.min.js && cleancss ika.css -o build/ika.min.css",
+    "build": "babel ika.js ika.dom.js -o build/ika.min.js && uglifyjs build/ika.min.js -o build/ika.min.js && cleancss ika.css -o build/ika.min.css",
     "demo": "cp build/* demo/"
   },
   "keywords": [

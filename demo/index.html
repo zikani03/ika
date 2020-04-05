@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ika by NNDI: Demo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.1/css/bulma.min.css">
-    <link rel="stylesheet" href="../ika.css">
+    <link rel="stylesheet" href="ika.min.css">
 </head>
 <body>
     <div class="example-form container">
@@ -33,22 +33,24 @@
             </div>
             <div class="control">
                 <label for="languages">Gender</label>
-                <label for="Java"><input type="radio" name="gender" value="Male" data-ika="male"> Male</label>
-                <label for="Java"><input type="radio" name="gender" value="Female" data-ika="female">Female</label>
-                <label for="Java"><input type="radio" name="gender" value="Not telling" data-ika="gender-no">Not Saying</label>
+                <p>
+                    <label class="label"><input type="radio" name="gender" value="Male" data-ika="male"> Male</label>
+                    <label class="label"><input type="radio" name="gender" value="Female" data-ika="female"> Female</label>
+                    <label class="label"><input type="radio" name="gender" value="Not telling" data-ika="gender-no"> Not Saying</label>
+                </p>
             </div>
             <div class="control">
                 <label for="languages">Languages</label>
-                <label for="Java"><input type="checkbox" name="languages[]" value="java" data-ika="java"> Java</label>
-                <label for="Java"><input type="checkbox" name="languages[]" value="python" data-ika="python"> Python</label>
-                <label for="Java"><input type="checkbox" name="languages[]" value="go" data-ika="go"> Go</label>
+                <p>
+                    <label class="label"><input type="checkbox" name="languages[]" value="java" data-ika="java"> Java</label>
+                    <label class="label"><input type="checkbox" name="languages[]" value="python" data-ika="python"> Python</label>
+                    <label class="label"><input type="checkbox" name="languages[]" value="go" data-ika="go"> Go</label>
+                </p>
             </div>
-            <button>Submit</button>
+            <button class="button">Submit</button c>
         </form>
     </div>
 
-    <script src="ika.min.js"></script>
-    <script src="../ika.js"></script>
-    <script src="../ika.dom.js"></script>
+    <script type="text/javascript" src="ika.min.js"></script>
 </body>
 </html>
