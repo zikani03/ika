@@ -67,15 +67,23 @@ class Ika {
             }
             el = mapping[currentTag];
             if (lastElementWasTag && el) {
-                output.set(el, value.trim());
+                var formattedValue = value.trim()
+                    .replace(/^\'/gm, "")
+                    .replace(/\'$/gm, "")
+                    .replace(/^\"/gm, "")
+                    .replace(/\"$/gm, "")
+                    .trim();
+                output.set(el, formattedValue.trim());
                 lastElementWasTag = false;
             }
         }
+
+        if (output.size == 0) 
+            return null;
 
         return output;
     }
 }
 
-if (!window) {
-    module.exports = Ika;
-}
+
+module.exports = Ika;

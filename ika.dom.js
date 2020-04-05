@@ -64,6 +64,6 @@
 
         ikaParentNode.appendChild(wrap);
     } else {
-        console.error("ika: Failed to find either the submit button or the text input field");
+        console.error("ika: Failed to find div#ika-apa");
     }
 //});
