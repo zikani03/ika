@@ -1,0 +1,22 @@
+{
+  "name": "ika",
+  "version": "0.1.0",
+  "description": "Form filling just got faster, run regular users to power users!",
+  "main": "ika.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ika",
+    "form",
+    "tags",
+    "input"
+  ],
+  "author": "NNDI",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "jest": "^25.2.7"
+  }
+}
