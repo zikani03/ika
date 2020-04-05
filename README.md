@@ -51,6 +51,12 @@ In order to do so. you mostly need to modify the following elements with CSS:
 #nndi--ika-txt {}
 ```
 
+## LICENSE
+
+MIT 
+
+See [LICENSE](./LICENSE)
+
 ---
 
 Copyright (c) NNDI
