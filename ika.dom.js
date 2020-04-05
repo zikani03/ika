@@ -2,7 +2,7 @@
  * DOM manipulation for the ika library
  * @author Zikani Nyirenda Mwase <zikani@nndi-tech.com>
  */
-document.addEventListener("load", function() {
+//document.addEventListener("loadend", function() {
     var ikaParentNode = document.getElementById("ika-apa");
 
     if (ikaParentNode) {
@@ -66,4 +66,4 @@ document.addEventListener("load", function() {
     } else {
         console.error("ika: Failed to find either the submit button or the text input field");
     }
-}
+//});
