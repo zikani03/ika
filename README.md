@@ -7,6 +7,10 @@ regular users into power users!
 It works by tagging fields on a form with a shorthand and enabling users to 
 input the form fields via the shorthands in from field.
 
+## DEMO
+
+![demo](./demo.gif)
+
 ## USAGE
 
 In order to use `ika` you currently need to do two things.
