@@ -2,7 +2,7 @@
  * DOM manipulation for the ika library
  * @author Zikani Nyirenda Mwase <zikani@nndi-tech.com>
  */
-//document.addEventListener("loadend", function() {
+document.addEventListener("DOMContentLoaded", function() {
     var ikaParentNode = document.getElementById("ika-apa");
 
     if (ikaParentNode) {
@@ -65,4 +65,4 @@
     } else {
         console.error("ika: Failed to find div#ika-apa");
     }
-//});
+});
