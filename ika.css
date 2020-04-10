@@ -1,24 +1,93 @@
+
 #nndi--ika-control {
-    width: 100%;
+    width:95%;
+    border-radius: 4px;
     border:1px solid rgba(100, 100, 200, 0.1);
     min-height: 50px;
-    padding: 5px;
+    padding: 7px;
     background-color: #fff;
     z-index: 1133;
+    margin-top: calc(   0.5em - 1px);
+    margin-bottom: calc(0.5em - 1px);
 }
 
 #nndi--ika-control.hidden {
     display: none;
 }
 
-#nndi--ika-control > #nndi--ika-btn {
-    margin: 5px 3px;
-}
-
 #nndi--ika-control > #nndi--ika-txt {
-    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
     border: 1px solid rgba(100, 100, 100, 0.5);
     background-color: #fff;
     min-height: 2em;
     padding: 2px;
+}
+
+#nndi--ika-control > #nndi--ika-btn[disabled] {
+    cursor: not-allowed;
+}
+
+#nndi--ika-control > #nndi--ika-btn {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    align-items: center;
+    background-color: #3273dc;
+    border-color: #3273dc;
+    border-radius: 2px;
+    border-width: 1px;
+    border: 1px solid transparent;
+    box-shadow: none;
+
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.75rem;
+    height: 2.5em;
+    justify-content: center;
+    justify-content: flex-start;
+    line-height: 1.5;
+    margin: 5px 3px;
+    padding-bottom: calc(0.5em - 1px);
+    padding-bottom: calc(0.5em - 1px);
+    padding-left: 1em;
+    padding-left: calc(0.75em - 1px);
+    padding-right: 1em;
+    padding-right: calc(0.75em - 1px);
+    padding-top: calc(0.5em - 1px);
+    padding-top: calc(0.5em - 1px);
+    position: relative;
+    text-align: center;
+    vertical-align: top;
+    white-space: nowrap;
+}
+#nndi--ika-powered {
+    line-height: 1.5;
+    font-size: 0.65em;
+}
+
+#nndi--ika-control > #nndi--ika-btn::focus {
+    outline: none;
+    background-color: #8d9aad;
+}
+
+#nndi--ika-btn .icon:first-child:not(:last-child) {
+    margin-left: calc(-0.5em - 1px);
+    margin-right: 0.25em;
+}
+
+#nndi--ika-btn .icon:last-child:not(:first-child) {
+    margin-left: 0.25em;
+    margin-right: calc(-0.5em - 1px);
+}
+
+#nndi--ika-btn .icon:first-child:last-child {
+    margin-left: calc(-0.5em - 1px);
+    margin-right: calc(-0.5em - 1px);
 }

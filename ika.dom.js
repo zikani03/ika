@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ikaBtn.innerHTML = "Populate (Ctrl + Enter)";
         
         var poweredBy = document.createElement("small");
+        poweredBy.setAttribute("id", "nndi--ika-powered");
         poweredBy.innerHTML = 'Powered by <a href="https://github.com/nndi-oss/ika">ika</a>';
 
         function __ikahandleSubmit(evt) {
