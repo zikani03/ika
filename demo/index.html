@@ -11,7 +11,26 @@
 <body>
     <div class="example-form container">
         <h1 class="is-size-1">Ika Demo</h1>
+        <small><a href="https://github.com/nndi-oss/ika">View on GitHub</a></small>
+        <div class="notification is-info">
+            <p>This demo shows how to use <strong>ika</strong></p>
+            <p>
+                Use the following tags to populate the text fields:
+                <strong>firstName:</strong>, <strong>lastName:</strong>
+                <strong>dob:</strong>, <strong>eyes:</strong>
+            </p>
 
+            <p>
+                The following tags accept only <strong>Y</strong> or <strong>N</strong><br/>
+                <strong>male:</strong>, <strong>female:</strong>,<strong>genderNone:</strong>,
+                <strong>java:</strong>, <strong>python:</strong>,<strong>go:</strong>
+            </p>
+
+            <p>An example input is shown below</p>
+            <pre>firstName:John lastName:Doe dob:1970-01-01 java:y python:y male:y</pre>
+        </div>
+
+        <h3 class="is-size-3">Example Form</h3>
         <div id="ika-apa"></div>
 
         <form>
@@ -21,22 +40,22 @@
             </div>
             <div class="control">
                 <label for="lastname">Lastname</label>
-                <input type="text" name="lastName" id="lastName" class="input is-primary" data-ika="l">
+                <input type="text" name="lastName" id="lastName" class="input is-primary" data-ika="lastName">
             </div>
             <div class="control">
                 <label for="dob">Date Of Birth</label>
-                <input type="text" name="dateOfBirth" id="dateOfBirth" class="input is-primary" data-ika="d">
+                <input type="text" name="dateOfBirth" id="dateOfBirth" class="input is-primary" data-ika="dob">
             </div>
             <div class="control">
                 <label for="eyecolor">Eye Color</label>
-                <input type="text" name="eyeColor" id="eyeColor" class="input is-primary" data-ika="e">
+                <input type="text" name="eyeColor" id="eyeColor" class="input is-primary" data-ika="eyes">
             </div>
             <div class="control">
                 <label for="languages">Gender</label>
                 <p>
                     <label class="label"><input type="radio" name="gender" value="Male" data-ika="male"> Male</label>
                     <label class="label"><input type="radio" name="gender" value="Female" data-ika="female"> Female</label>
-                    <label class="label"><input type="radio" name="gender" value="Not telling" data-ika="gender-no"> Not Saying</label>
+                    <label class="label"><input type="radio" name="gender" value="Not telling" data-ika="genderNone"> Not Saying</label>
                 </p>
             </div>
             <div class="control">
