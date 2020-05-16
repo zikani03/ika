@@ -1,11 +1,17 @@
 ika
 ===
 
+<p align="center">
+    <img src="logo-draft.png" alt="ika draft logo">
+</p>
+
 `ika` is a small JavaScript library that makes filling forms faster and turns
 regular users into power users!
 
 It works by tagging fields on a form with a shorthand and enabling users to 
 input the form fields via the shorthands in one field.
+
+> NOTE: Could use design help with the logo. ;)
 
 ## DEMO
 
