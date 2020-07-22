@@ -1,5 +1,5 @@
 {
-  "name": "ika",
+  "name": "@nndi/ika",
   "version": "0.1.0",
   "description": "Form filling just got faster, run regular users to power users!",
   "main": "ika.js",
