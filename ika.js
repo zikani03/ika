@@ -85,6 +85,7 @@ class Ika {
     }
 }
 
-if (!window) {
+if (module != 'undefined') {
+    
     module.exports = Ika;
 }
