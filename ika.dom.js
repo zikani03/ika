@@ -2,6 +2,8 @@
  * DOM manipulation for the ika library
  * @author Zikani Nyirenda Mwase <zikani@nndi-tech.com>
  */
+
+// @ts-check
 document.addEventListener("DOMContentLoaded", function() {
     var ikaParentNode = document.getElementById("ika-apa");
 

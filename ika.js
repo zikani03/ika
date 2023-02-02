@@ -5,6 +5,9 @@
  * 
  * @author Zikani Nyirenda Mwase <zikani@nndi-tech.com>
  */
+
+// @ts-check
+
 class Ika {
     constructor(config = {}) {
         this._config = Object.assign({}, config);
