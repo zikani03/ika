@@ -3,13 +3,19 @@
  * Ika provides functionality for mapping tags to Input Elements and parsing
  * tagged text input.
  * 
- * @author Zikani Nyirenda Mwase <zikani@nndi-tech.com>
+ * @author Zikani Nyirenda Mwase <zikani03@nndi.cloud>
  */
+
 class Ika {
+
+    _config: any|null
+    __tagRegexp: RegExp
+    _inputTagMap: Map<string, HTMLInputElement>
+
     constructor(config = {}) {
         this._config = Object.assign({}, config);
         this.__tagRegexp = /(\w+\b\:)/g;
-        this._inputTagMap = {};
+        this._inputTagMap = new Map();
     }
 
     /**
@@ -17,18 +23,18 @@ class Ika {
      * 
      * @return WeakMap with mapping of tag to input element 
      */
-    generateMappingFromInputs() {
-        const inputList = document.getElementsByTagName("input");
-        let tagName = null;
+    generateMappingFromInputs(): Map<string, HTMLInputElement> {
+        const inputList: HTMLCollectionOf<HTMLInputElement> = document.getElementsByTagName("input");
+        let tagName: string|null = null;
 
-        for (var inputField of inputList) {
+        for (var inputField of Array.from(inputList)) {
             if (inputField.hasAttribute("data-ika")) {
                 tagName = inputField.getAttribute("data-ika");
-                 if (this._inputTagMap[tagName]) {
+                 if (this._inputTagMap[tagName!]) {
                      // already exists, skip it?
                      continue;
                  }
-                 this._inputTagMap[tagName] = inputField;
+                 this._inputTagMap[tagName!] = inputField;
             }
         }
 
@@ -42,7 +48,7 @@ class Ika {
      * @param object mapping of tag to input element
      * @return object with mapping of input to value from the tagged text
      */
-    parseMapping(textInput, mapping = null) {
+    parseMapping(textInput: string, mapping: Map<string, HTMLInputElement>|null = null) {
         if (textInput == null || textInput === '') {
             return null;
         }
@@ -55,7 +61,7 @@ class Ika {
         let output = new Map()
 
         const atoms = textInput.split(this.__tagRegexp);
-        var currentTag = null;
+        var currentTag: string|null = null;
         var lastElementWasTag = false;
         let el = null;
 
@@ -65,7 +71,7 @@ class Ika {
                 lastElementWasTag = true;
                 continue;
             }
-            el = mapping[currentTag];
+            el = mapping[currentTag!];
             if (lastElementWasTag && el) {
                 var formattedValue = value.trim()
                     .replace(/^\'/gm, "")
@@ -83,9 +89,4 @@ class Ika {
 
         return output;
     }
-}
-
-if (module != 'undefined') {
-    
-    module.exports = Ika;
 }
