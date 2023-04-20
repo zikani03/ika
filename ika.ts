@@ -1,4 +1,3 @@
-
 /**
  * Ika provides functionality for mapping tags to Input Elements and parsing
  * tagged text input.
@@ -6,16 +5,16 @@
  * @author Zikani Nyirenda Mwase <zikani03@nndi.cloud>
  */
 
-class Ika {
+export default class Ika {
 
     _config: any|null
     __tagRegexp: RegExp
-    _inputTagMap: Map<string, HTMLInputElement>
+    _inputTagMap: any
 
     constructor(config = {}) {
         this._config = Object.assign({}, config);
         this.__tagRegexp = /(\w+\b\:)/g;
-        this._inputTagMap = new Map();
+        this._inputTagMap = new Map<any, any>()
     }
 
     /**
@@ -23,11 +22,13 @@ class Ika {
      * 
      * @return WeakMap with mapping of tag to input element 
      */
-    generateMappingFromInputs(): Map<string, HTMLInputElement> {
-        const inputList: HTMLCollectionOf<HTMLInputElement> = document.getElementsByTagName("input");
+    generateMappingFromInputs(): any {
+        const inputList: any = document.getElementsByTagName("input");
         let tagName: string|null = null;
 
-        for (var inputField of Array.from(inputList)) {
+        for (var e of inputList) {
+            let inputField: HTMLInputElement = e
+
             if (inputField.hasAttribute("data-ika")) {
                 tagName = inputField.getAttribute("data-ika");
                  if (this._inputTagMap[tagName!]) {

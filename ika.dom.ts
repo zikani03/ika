@@ -1,4 +1,4 @@
-
+import Ika from './ika'
 /**
  * DOM manipulation for the ika library
  * @author Zikani Nyirenda Mwase <zikani@nndi-tech.com>
@@ -27,7 +27,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     el.setAttribute("checked", "checked");
                 }
             } else {
-                el.setAttribute("value", value);
+                if (value.startsWith("faker.")) {
+                    let withoutFaker = value.replace("faker.", ""),
+                        fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`); //TODO: how to tell typescript it's a global thang
+                    el.setAttribute("value", fakedValue);
+                } else {
+                    el.setAttribute("value", value);
+                }
             }
         }
 
