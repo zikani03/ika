@@ -77,11 +77,19 @@
                 if (value && (value == "0" || value.toLowerCase() == "n")) el.removeAttribute("checked");
                 if (value && (value == "1" || value.toLowerCase() == "y")) el.setAttribute("checked", "checked");
             } else if (value.startsWith("faker.")) {
-                let withoutFaker = value.replace("faker.", ""), fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`);
+                let withoutFaker = value.replace("faker.", ""), fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`); //TODO: how to tell typescript it's a global thang
                 el.setAttribute("value", fakedValue);
             } else el.setAttribute("value", value);
         }
         return evt.preventDefault();
+    }
+    // If the ika input is not defined, then add it to the document
+    if (!ikaParentNode) {
+        ikaParentNode = document.createElement("div");
+        ikaParentNode.setAttribute("id", "ika-apa");
+        ikaParentNode.setAttribute("data-generated", "true");
+        // TODO: make it a floating element at the bottom of the page
+        document.getElementsByTagName("body")[0].appendChild(ikaParentNode);
     }
     if (ikaParentNode) {
         var wrap = document.createElement("div");

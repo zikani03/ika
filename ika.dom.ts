@@ -39,7 +39,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
         return evt.preventDefault();
     }
-
+    
+    // If the ika input is not defined, then add it to the document
+    if (!ikaParentNode) {
+        ikaParentNode = document.createElement('div');
+        ikaParentNode.setAttribute('id', 'ika-apa');
+        ikaParentNode.setAttribute('data-generated', 'true');
+        // TODO: make it a floating element at the bottom of the page
+        document.getElementsByTagName('body')[0].appendChild(ikaParentNode)
+    }
 
     if (ikaParentNode) {
         var wrap = document.createElement("div");
