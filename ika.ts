@@ -5,9 +5,14 @@
  * @author Zikani Nyirenda Mwase <zikani03@nndi.cloud>
  */
 
+export type IkaFakerOptions = {
+    [key: string]: String | ((x: any) => string)
+};
+
+
 export default class Ika {
 
-    _config: any|null
+    _config: any | null
     __tagRegexp: RegExp
     _inputTagMap: any
 
@@ -24,7 +29,7 @@ export default class Ika {
      */
     generateMappingFromInputs(): any {
         const inputList: any = document.getElementsByTagName("input");
-        let tagName: string|null = null;
+        let tagName: string | null = null;
 
         for (var e of inputList) {
             let inputField: HTMLInputElement = e
@@ -45,7 +50,7 @@ export default class Ika {
 
         return this._inputTagMap;
     }
-    
+
     /**
      * Parses tagged text with the given input mapping
      * 
@@ -53,11 +58,11 @@ export default class Ika {
      * @param object mapping of tag to input element
      * @return object with mapping of input to value from the tagged text
      */
-    parseMapping(textInput: string, mapping: Map<string, HTMLInputElement>|null = null) {
+    parseMapping(textInput: string, mapping: Map<string, HTMLInputElement> | null = null) {
         if (textInput == null || textInput === '') {
             return null;
         }
-        
+
         if (mapping == null) {
             // Use Cached input map if the mapping is not provided
             mapping = this._inputTagMap;
@@ -66,7 +71,7 @@ export default class Ika {
         let output = new Map()
 
         const atoms = textInput.split(this.__tagRegexp);
-        var currentTag: string|null = null;
+        var currentTag: string | null = null;
         var lastElementWasTag = false;
         let el = null;
 
@@ -89,7 +94,7 @@ export default class Ika {
             }
         }
 
-        if (output.size == 0) 
+        if (output.size == 0)
             return null;
 
         return output;

@@ -3,7 +3,7 @@
         "module": "ESNext",
         "outDir": "build",
         "moduleResolution": "node",
-        "target": "ES2015"
+        "target": "ES2017"
     },
     // "files": [
     //     // "ika.ts",

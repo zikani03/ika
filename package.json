@@ -10,6 +10,7 @@
     "demo": "cp build/* demo/",
     "sass-build": "sass ika.scss build/ika.css",
     "build": "parcel build && npm run sass-build && cleancss build/ika.css -o build/ika.min.css",
+    "build-demo": "npm run build && cp build/ika.js demo/ika.js",
     "build-vue-plugin": "babel --minified --no-comments ika.vue-plugin.js -o build/ika.vue.min.js"
   },
   "keywords": [

@@ -1,22 +1,45 @@
 import Ika from './ika'
+import { IkaFakerOptions } from './ika'
 /**
  * DOM manipulation for the ika library
  * @author Zikani Nyirenda Mwase <zikani@nndi-tech.com>
  */
+declare global {
+    interface Window {
+        ikaFakerOptions: IkaFakerOptions;
+        faker: any
+    }
+}
 
-document.addEventListener("DOMContentLoaded", function() {
+// window.ikaFakerOptions = window.ikaFakerOptions || {};
+
+document.addEventListener("DOMContentLoaded", function () {
     var ikaParentNode = document.getElementById("ika-apa");
     const ikaInstance = new Ika({});
 
     function __ikahandleSubmit(evt: Event) {
         var inputMapping = ikaInstance.generateMappingFromInputs();
         var rawText = ikaTxt.innerText;
+        if (rawText.length < 1) {
+            for (var [nameOrTag, fakerSpecOrFn] of Object.entries(window.ikaFakerOptions)) {
+                let el = document.getElementsByName(nameOrTag)[0];
+                if (!el) {
+                    console.error("failed to generate faker value - could not find element with name", nameOrTag)
+                    return;
+                }
+                let value = fakerSpecOrFn;
+                let withoutFaker = typeof(value) === 'string' ? value.replace("faker.", "") : value(el),
+                    fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`); //TODO: how to tell typescript it's a global thang
+                el.setAttribute("value", fakedValue);
+            }
+            return false;
+        }
+
         var parsed = ikaInstance.parseMapping(rawText, inputMapping);
 
         if (parsed == null) {
             return false;
         }
-
         for (var [el, value] of parsed) {
             var elType = el.getAttribute("type");
             if (elType == "radio" || elType == "checkbox") {
@@ -31,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     let withoutFaker = value.replace("faker.", ""),
                         fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`); //TODO: how to tell typescript it's a global thang
                     el.setAttribute("value", fakedValue);
-                } else {
+                } else if (value) {
                     el.setAttribute("value", value);
                 }
             }
@@ -39,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         return evt.preventDefault();
     }
-    
+
     // If the ika input is not defined, then add it to the document
     if (!ikaParentNode) {
         ikaParentNode = document.createElement('div');
@@ -57,11 +80,11 @@ document.addEventListener("DOMContentLoaded", function() {
         ikaTxt.setAttribute("id", "nndi--ika-txt");
         ikaTxt.setAttribute("contenteditable", "true");
         ikaTxt.setAttribute("tabindex", "1");
-        
+
         var ikaBtn = document.createElement("button")
         ikaBtn.setAttribute("id", "nndi--ika-btn");
         ikaBtn.innerHTML = "Populate (Ctrl + Enter)";
-        
+
         var poweredBy = document.createElement("small");
         poweredBy.setAttribute("id", "nndi--ika-powered");
         poweredBy.innerHTML = 'Powered by <a href="https://github.com/zikani03/ika">ika</a>';
