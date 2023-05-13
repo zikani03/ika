@@ -31,12 +31,16 @@ export default class Ika {
 
             if (inputField.hasAttribute("data-ika")) {
                 tagName = inputField.getAttribute("data-ika");
-                 if (this._inputTagMap[tagName!]) {
-                     // already exists, skip it?
-                     continue;
-                 }
-                 this._inputTagMap[tagName!] = inputField;
+            } else {
+                // TODO: for checkboxes, radios and select options use the value as the tagName if possible.
+                tagName = inputField.getAttribute("name");
             }
+
+            if (this._inputTagMap[tagName!]) {
+                // already exists, skip it?
+                continue;
+            }
+            this._inputTagMap[tagName!] = inputField
         }
 
         return this._inputTagMap;

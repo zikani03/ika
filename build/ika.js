@@ -18,11 +18,10 @@
         let tagName = null;
         for (var e of inputList){
             let inputField = e;
-            if (inputField.hasAttribute("data-ika")) {
-                tagName = inputField.getAttribute("data-ika");
-                if (this._inputTagMap[tagName]) continue;
-                this._inputTagMap[tagName] = inputField;
-            }
+            if (inputField.hasAttribute("data-ika")) tagName = inputField.getAttribute("data-ika");
+            else tagName = inputField.getAttribute("name");
+            if (this._inputTagMap[tagName]) continue;
+            this._inputTagMap[tagName] = inputField;
         }
         return this._inputTagMap;
     }
