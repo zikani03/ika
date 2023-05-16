@@ -1,14 +1,17 @@
 
 #nndi--ika-control {
     width:95%;
-    border-radius: 4px;
-    border:1px solid rgba(100, 100, 200, 0.1);
+    min-width: 300px;
+    max-width: 95%;
     min-height: 50px;
+    border-radius: 4px;
     padding: 7px;
     background-color: #fff;
+    border: 1px solid #3273dc;
     z-index: 1133;
-    margin-top: calc(   0.5em - 1px);
-    margin-bottom: calc(0.5em - 1px);
+    // margin-top: calc(   0.5em - 1px);
+    // margin-bottom: calc(0.5em - 1px);
+    box-shadow: 1px 1px 2px 1px rgba(176, 176, 176, 0.15) ;
 }
 
 #nndi--ika-control.hidden {
@@ -17,11 +20,12 @@
 
 #nndi--ika-control > #nndi--ika-txt {
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: 400;
+    font-weight: 300;
     border: 1px solid rgba(100, 100, 100, 0.5);
     background-color: #fff;
     min-height: 2em;
-    padding: 2px;
+    width: 100%;
+    display: block;
 }
 
 #nndi--ika-control > #nndi--ika-btn[disabled] {
@@ -29,6 +33,7 @@
 }
 
 #nndi--ika-control > #nndi--ika-btn {
+    appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
     -webkit-touch-callout: none;
@@ -47,22 +52,15 @@
 
     color: #fff;
     cursor: pointer;
-    display: inline-flex;
+    display: block;
     font-size: 0.75rem;
     height: 2.5em;
-    justify-content: center;
-    justify-content: flex-start;
     line-height: 1.5;
-    margin: 5px 3px;
+    margin: 5px 2px;
     padding-bottom: calc(0.5em - 1px);
-    padding-bottom: calc(0.5em - 1px);
-    padding-left: 1em;
     padding-left: calc(0.75em - 1px);
-    padding-right: 1em;
     padding-right: calc(0.75em - 1px);
     padding-top: calc(0.5em - 1px);
-    padding-top: calc(0.5em - 1px);
-    position: relative;
     text-align: center;
     vertical-align: top;
     white-space: nowrap;
@@ -70,6 +68,7 @@
 #nndi--ika-powered {
     line-height: 1.5;
     font-size: 0.65em;
+    display: block;
 }
 
 #nndi--ika-control > #nndi--ika-btn::focus {

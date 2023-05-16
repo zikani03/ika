@@ -1,9 +1,6 @@
 import Ika from './ika'
 import { IkaFakerOptions } from './ika'
-/**
- * DOM manipulation for the ika library
- * @author Zikani Nyirenda Mwase <zikani@nndi-tech.com>
- */
+
 declare global {
     interface Window {
         ikaFakerOptions: IkaFakerOptions;
@@ -11,15 +8,13 @@ declare global {
     }
 }
 
-// window.ikaFakerOptions = window.ikaFakerOptions || {};
-
 document.addEventListener("DOMContentLoaded", function () {
     var ikaParentNode = document.getElementById("ika-apa");
     const ikaInstance = new Ika({});
 
     function __ikahandleSubmit(evt: Event) {
         var inputMapping = ikaInstance.generateMappingFromInputs();
-        var rawText = ikaTxt.innerText;
+        var rawText = ikaTxt.value ;
         if (rawText.length < 1) {
             for (var [nameOrTag, fakerSpecOrFn] of Object.entries(window.ikaFakerOptions)) {
                 let el = document.getElementsByName(nameOrTag)[0];
@@ -28,9 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
                 let value = fakerSpecOrFn;
-                let withoutFaker = typeof(value) === 'string' ? value.replace("faker.", "") : value(el),
-                    fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`); //TODO: how to tell typescript it's a global thang
-                el.setAttribute("value", fakedValue);
+                if (typeof(value) === 'function') {
+                    el.setAttribute("value", value(el) || '');
+                } else {
+                    let withoutFaker = typeof(value) === 'string' ? value.replace("faker.", "") : '',
+                        fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`);
+                    el.setAttribute("value", fakedValue);
+                }
             }
             return false;
         }
@@ -52,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 if (value.startsWith("faker.")) {
                     let withoutFaker = value.replace("faker.", ""),
-                        fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`); //TODO: how to tell typescript it's a global thang
+                        fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`);
                     el.setAttribute("value", fakedValue);
                 } else if (value) {
                     el.setAttribute("value", value);
@@ -68,22 +67,34 @@ document.addEventListener("DOMContentLoaded", function () {
         ikaParentNode = document.createElement('div');
         ikaParentNode.setAttribute('id', 'ika-apa');
         ikaParentNode.setAttribute('data-generated', 'true');
-        // TODO: make it a floating element at the bottom of the page
+        ikaParentNode.style.position = 'absolute';
+        ikaParentNode.style.bottom = '0';
+        ikaParentNode.style.right = '0';
+
         document.getElementsByTagName('body')[0].appendChild(ikaParentNode)
+
+        function onResize(event) {
+            ikaParentNode.style.bottom = '0';
+            ikaParentNode.style.right = '0';
+        }
+
+        window.addEventListener('resize', onResize)
     }
 
     if (ikaParentNode) {
         var wrap = document.createElement("div");
         wrap.setAttribute("id", "nndi--ika-control");
 
-        var ikaTxt = document.createElement("div")
+        var ikaTxt = document.createElement("textarea")
         ikaTxt.setAttribute("id", "nndi--ika-txt");
+        ikaTxt.setAttribute("placeholder", "use tags here or leave empty for auto-fill")
         ikaTxt.setAttribute("contenteditable", "true");
         ikaTxt.setAttribute("tabindex", "1");
 
         var ikaBtn = document.createElement("button")
         ikaBtn.setAttribute("id", "nndi--ika-btn");
-        ikaBtn.innerHTML = "Populate (Ctrl + Enter)";
+        // ikaBtn.innerHTML = "🪄 Populate (Ctrl + Enter)";
+        ikaBtn.innerHTML = "🪄 Fill (Ctrl + Enter)";
 
         var poweredBy = document.createElement("small");
         poweredBy.setAttribute("id", "nndi--ika-powered");
@@ -103,6 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         ikaParentNode.appendChild(wrap);
     } else {
-        // console.error("ika: Failed to find div#ika-apa");
+        console.error("ika: failed to find or create node to mount ika onto. Typically expects a div#ika-apa");
     }
 });

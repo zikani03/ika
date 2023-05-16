@@ -31,7 +31,7 @@
         </div>
 
         <h3 class="is-size-3">Example Form</h3>
-        <div id="ika-apa"></div>
+        <!-- <div id="ika-apa"></div> -->
 
         <form>
             <div class="control">
@@ -77,7 +77,9 @@
         window.ikaFakerOptions = {
             "firstName": "faker.name.firstName",
             "lastName": "faker.name.lastName",
-            "dateOfBirth": "faker.date.birthdate"
+            "dateOfBirth": function(el) {
+                return faker.date.birthdate().toISOString().substring(0, 10)
+            }
         }
 
         import "/ika.js"
