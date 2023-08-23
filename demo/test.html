@@ -20,11 +20,44 @@
         <input type="text" name="dateOfBirth" id="dateOfBirth" placeholder="Birtdate YYYY-MM-DD format">
     </div>
 
+    <form action="" name="specificForm">
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName" placeholder="First name">
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Last name">
+        </div>
+        <div>
+            <label for="dob">Birthdate</label>
+            <input type="text" name="dateOfBirth" id="dateOfBirth" placeholder="Birtdate YYYY-MM-DD format">
+        </div>
+    </form>
+
     <link rel="stylesheet" href="https://labs.zikani.me/ika/ika.min.css">
     <script type="module">
         import {faker} from "https://cdn.skypack.dev/@faker-js/faker@v7.4.0?dts"
         window.faker = faker
         
+
+        window.ikaForms = {
+            "*": {
+                "firstName": "faker.name.firstName",
+                "lastName": "faker.name.lastName",
+                "dateOfBirth": function(el) {
+                    return faker.date.birthdate().toISOString().substring(0, 10)
+                }
+            },
+            "form[name=specificForm]": {
+                "firstName": "faker.name.firstName",
+                "lastName": "faker.name.firstName",
+                "dateOfBirth": function(el) {
+                    return "1901-01-01"
+                }
+            }
+        }
+
         window.ikaFakerOptions = {
             "firstName": "faker.name.firstName",
             "lastName": "faker.name.lastName",

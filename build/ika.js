@@ -3,7 +3,7 @@
  * tagged text input.
  * 
  * @author Zikani Nyirenda Mwase <zikani03@nndi.cloud>
- */ class $3b1669ba769817af$export$2e2bcd8739ae039 {
+ */ class $cadeddde0cde79c4$export$2e2bcd8739ae039 {
     constructor(config = {}){
         this._config = Object.assign({}, config);
         this.__tagRegexp = /(\w+\b\:)/g;
@@ -62,7 +62,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     var ikaParentNode = document.getElementById("ika-apa");
-    const ikaInstance = new (0, $3b1669ba769817af$export$2e2bcd8739ae039)({});
+    const ikaInstance = new (0, $cadeddde0cde79c4$export$2e2bcd8739ae039)({});
     function __ikahandleSubmit(evt) {
         var inputMapping = ikaInstance.generateMappingFromInputs();
         var rawText = ikaTxt.value;

@@ -5,10 +5,10 @@
         "moduleResolution": "node",
         "target": "ES2017"
     },
-    // "files": [
-    //     // "ika.ts",
-    //     // "ika.dom.ts",
-    // ],
+    "files": [
+        "src/**.ts",
+        // "ika.dom.ts",
+    ],
     "exclude": [
         "node_modules",
         "build",

@@ -9,6 +9,9 @@ export type IkaFakerOptions = {
     [key: string]: String | ((x: any) => string)
 };
 
+export type IkaForms = {
+    [key: string]: String | ((x: any) => string)
+};
 
 export default class Ika {
 

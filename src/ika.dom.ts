@@ -1,9 +1,10 @@
 import Ika from './ika'
-import { IkaFakerOptions } from './ika'
+import { IkaFakerOptions, IkaForms } from './ika'
 
 declare global {
     interface Window {
         ikaFakerOptions: IkaFakerOptions;
+        ikaForms: { string : IkaForms };
         faker: any
     }
 }
