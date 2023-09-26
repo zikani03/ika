@@ -5,14 +5,6 @@
  * @author Zikani Nyirenda Mwase <zikani03@nndi.cloud>
  */
 
-export type IkaFakerOptions = {
-    [key: string]: String | ((x: any) => string)
-};
-
-export type IkaForms = {
-    [key: string]: String | ((x: any) => string)
-};
-
 export default class Ika {
 
     _config: any | null
@@ -30,8 +22,8 @@ export default class Ika {
      * 
      * @return WeakMap with mapping of tag to input element 
      */
-    generateMappingFromInputs(): any {
-        const inputList: any = document.getElementsByTagName("input");
+    generateMappingFromInputs(formEl): any {
+        const inputList: any = formEl.getElementsByTagName("input");
         let tagName: string | null = null;
 
         for (var e of inputList) {

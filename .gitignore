@@ -3,3 +3,4 @@
 .parcel-cache/
 dotbabelrc
 wasm/
+.env
