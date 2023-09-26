@@ -1,9 +1,11 @@
+
+
 /**
  * Ika provides functionality for mapping tags to Input Elements and parsing
  * tagged text input.
  * 
  * @author Zikani Nyirenda Mwase <zikani03@nndi.cloud>
- */ class $3b1669ba769817af$export$2e2bcd8739ae039 {
+ */ class $cadeddde0cde79c4$export$2e2bcd8739ae039 {
     constructor(config = {}){
         this._config = Object.assign({}, config);
         this.__tagRegexp = /(\w+\b\:)/g;
@@ -13,8 +15,8 @@
      * Generates mapping of tag to an input element.
      * 
      * @return WeakMap with mapping of tag to input element 
-     */ generateMappingFromInputs() {
-        const inputList = document.getElementsByTagName("input");
+     */ generateMappingFromInputs(formEl) {
+        const inputList = formEl.getElementsByTagName("input");
         let tagName = null;
         for (var e of inputList){
             let inputField = e;
@@ -61,28 +63,10 @@
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    var ikaParentNode = document.getElementById("ika-apa");
-    const ikaInstance = new (0, $3b1669ba769817af$export$2e2bcd8739ae039)({});
-    function __ikahandleSubmit(evt) {
-        var inputMapping = ikaInstance.generateMappingFromInputs();
-        var rawText = ikaTxt.value;
-        if (rawText.length < 1) {
-            for (var [nameOrTag, fakerSpecOrFn] of Object.entries(window.ikaFakerOptions)){
-                let el = document.getElementsByName(nameOrTag)[0];
-                if (!el) {
-                    console.error("failed to generate faker value - could not find element with name", nameOrTag);
-                    return;
-                }
-                let value = fakerSpecOrFn;
-                if (typeof value === "function") el.setAttribute("value", value(el) || "");
-                else {
-                    let withoutFaker = typeof value === "string" ? value.replace("faker.", "") : "", fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`);
-                    el.setAttribute("value", fakedValue);
-                }
-            }
-            return false;
-        }
-        var parsed = ikaInstance.parseMapping(rawText, inputMapping);
+    const ikaInstance = new (0, $cadeddde0cde79c4$export$2e2bcd8739ae039)({});
+    function setDataOnInputsOnTarget(event, targetElement, taggedInputText, fakerObj) {
+        var inputMapping = ikaInstance.generateMappingFromInputs(targetElement);
+        var parsed = ikaInstance.parseMapping(taggedInputText, inputMapping);
         if (parsed == null) return false;
         for (var [el, value] of parsed){
             var elType = el.getAttribute("type");
@@ -91,16 +75,59 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (value && (value == "1" || value.toLowerCase() == "y")) el.setAttribute("checked", "checked");
             } else {
                 if (value.startsWith("faker.")) {
-                    let withoutFaker = value.replace("faker.", ""), fakedValue = window.faker.helpers.fake(`{{${withoutFaker}}}`);
+                    let withoutFaker = value.replace("faker.", ""), fakedValue = fakerObj.helpers.fake(`{{${withoutFaker}}}`);
                     el.setAttribute("value", fakedValue);
                 } else if (value) el.setAttribute("value", value);
             }
         }
-        return evt.preventDefault();
+        return event.preventDefault();
     }
+    function __ikahandleSubmit(evt) {
+        const configuredFaker = window.ikaConfig.faker;
+        var rawText = ikaTxt.value;
+        if (!window.ikaConfig) {
+            console.error("ika.js: cannot process event when ikaConfig is not defined");
+            return false;
+        }
+        if (!window.ikaConfig.forms) {
+            console.error("ika.js: cannot process event when no form is defined in window.ikaConfig['forms']");
+            return false;
+        }
+        const catchAllFormExists = window.ikaConfig.forms["*"] || false, catchAllFormDef = catchAllFormExists ? Object.assign({}, window.ikaConfig.forms["*"]) : {};
+        if (!catchAllFormExists) console.log("ika.js: catch-all form * not defined, we recommend defining a catch all form");
+        // Go through the document checking if the current page/document has one of the forms
+        // defined in ikaConfig.forms - we have to consider that we may have multiple forms too
+        let formsOnPage = {};
+        for (var [formName, ikaFormOptions] of Object.entries(window.ikaConfig.forms)){
+            let el = document.querySelector(formName);
+            if (el) formsOnPage[formName] = el;
+        }
+        const ikaInputTextAreaIsEmpty = rawText.length < 1;
+        if (ikaInputTextAreaIsEmpty) for (var [formName, formEl] of Object.entries(formsOnPage)){
+            // TODO: add elements from the catch-all form to the form here
+            for (var [nameOrTag, fakerSpecOrFn] of Object.entries(window.ikaConfig.forms[formName])){
+                let el = formEl.getElementsByName(nameOrTag)[0];
+                if (!el) {
+                    console.error("ika.js: failed to generate faker value - could not find element with name", nameOrTag);
+                    return;
+                }
+                let value = fakerSpecOrFn;
+                if (typeof value === "function") el.setAttribute("value", value(el) || "");
+                else {
+                    let withoutFaker = typeof value === "string" ? value.replace("faker.", "") : "", fakedValue = configuredFaker.helpers.fake(`{{${withoutFaker}}}`);
+                    el.setAttribute("value", fakedValue);
+                }
+            }
+            return false;
+        }
+        // By default the document element is our default target
+        let ikaTargetElement = document;
+        return setDataOnInputsOnTarget(evt, ikaTargetElement, rawText, configuredFaker);
+    }
+    var ikaParentNode = document.getElementById("ika-apa");
     // If the ika input is not defined, then add it to the document
     if (!ikaParentNode) {
-        ikaParentNode = document.createElement("div");
+        let ikaParentNode = document.createElement("div");
         ikaParentNode.setAttribute("id", "ika-apa");
         ikaParentNode.setAttribute("data-generated", "true");
         ikaParentNode.style.position = "absolute";
