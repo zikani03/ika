@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     let el = formEl.querySelector(`[name=${nameOrTag}]`);
                     if (!el) {
                         console.error("ika.js: failed to generate faker value - could not find element with name", nameOrTag)
-                        return;
+                        continue;
                     }
                     __ikaSetInputValue(el, fakerSpecOrFn, configuredFaker);
                 }
