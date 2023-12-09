@@ -2,6 +2,10 @@ import './types'
 import Ika from './ika'
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Add ika-disable to disable the input from being added to the page
+    if (document.getElementsByClassName('ika-disable').length > 0) {
+        return;
+    }
     const ikaInstance = new Ika({});
 
     function __ikaSetInputValue(el, fakerSpecOrFn, fakerObj) {
