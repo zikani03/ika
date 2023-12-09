@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var ikaParentNode: HTMLElement | null = document.getElementById("ika-apa");
     // If the ika input is not defined, then add it to the document
     if (!ikaParentNode) {
-        let ikaParentNode = document.createElement('div');
+        ikaParentNode = document.createElement('div');
         ikaParentNode.setAttribute('id', 'ika-apa');
         ikaParentNode.setAttribute('data-generated', 'true');
         ikaParentNode.style.position = 'absolute';
@@ -138,8 +138,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementsByTagName('body')[0].appendChild(ikaParentNode)
 
         function onResize(event) {
-            ikaParentNode.style.bottom = '0';
-            ikaParentNode.style.right = '0';
+            if (ikaParentNode) {
+                ikaParentNode.style.bottom = '0px';
+                ikaParentNode.style.right = '0px';
+            }
         }
 
         window.addEventListener('resize', onResize)

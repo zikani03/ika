@@ -63,6 +63,8 @@
 
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Add ika-disable to disable the input from being added to the page
+    if (document.getElementsByClassName("ika-disable").length > 0) return;
     const ikaInstance = new (0, $cadeddde0cde79c4$export$2e2bcd8739ae039)({});
     function __ikaSetInputValue(el, fakerSpecOrFn, fakerObj) {
         let value = fakerSpecOrFn;
@@ -134,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     let el = formEl.querySelector(`[name=${nameOrTag}]`);
                     if (!el) {
                         console.error("ika.js: failed to generate faker value - could not find element with name", nameOrTag);
-                        return;
+                        continue;
                     }
                     __ikaSetInputValue(el, fakerSpecOrFn, configuredFaker);
                 }
@@ -148,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var ikaParentNode = document.getElementById("ika-apa");
     // If the ika input is not defined, then add it to the document
     if (!ikaParentNode) {
-        let ikaParentNode = document.createElement("div");
+        ikaParentNode = document.createElement("div");
         ikaParentNode.setAttribute("id", "ika-apa");
         ikaParentNode.setAttribute("data-generated", "true");
         ikaParentNode.style.position = "absolute";
@@ -156,8 +158,10 @@ document.addEventListener("DOMContentLoaded", function() {
         ikaParentNode.style.right = "0";
         document.getElementsByTagName("body")[0].appendChild(ikaParentNode);
         function onResize(event) {
-            ikaParentNode.style.bottom = "0";
-            ikaParentNode.style.right = "0";
+            if (ikaParentNode) {
+                ikaParentNode.style.bottom = "0";
+                ikaParentNode.style.right = "0";
+            }
         }
         window.addEventListener("resize", onResize);
     }
