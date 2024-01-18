@@ -15,6 +15,15 @@
      * Generates mapping of tag to an input element.
      * 
      * @return WeakMap with mapping of tag to input element 
+     */ generateMappings(formEl) {
+        this.generateMappingFromInputs(formEl);
+        this.generateMappingFromSelects(formEl);
+        return this._inputTagMap;
+    }
+    /**
+     * Generates mapping of tag to an input element.
+     * 
+     * @return WeakMap with mapping of tag to input element 
      */ generateMappingFromInputs(formEl) {
         const inputList = formEl.getElementsByTagName("input");
         let tagName = null;
@@ -25,6 +34,22 @@
             tagName = inputField.getAttribute("name");
             if (this._inputTagMap[tagName]) continue;
             this._inputTagMap[tagName] = inputField;
+        }
+        return this._inputTagMap;
+    }
+    /**
+     * Generates mapping of tag to an input element.
+     * 
+     * @return WeakMap with mapping of tag to input element 
+     */ generateMappingFromSelects(formEl) {
+        const selectsList = formEl.getElementsByTagName("select");
+        let tagName = null;
+        for (var e of selectsList){
+            let selectControl = e;
+            if (selectControl.hasAttribute("data-ika")) tagName = selectControl.getAttribute("data-ika");
+            else tagName = selectControl.getAttribute("name");
+            if (this._inputTagMap[tagName]) continue;
+            this._inputTagMap[tagName] = selectControl;
         }
         return this._inputTagMap;
     }
@@ -80,9 +105,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 el.setAttribute("value", fakedValue);
             } else if (value) el.setAttribute("value", value);
         }
+        // Set the selected element of a <select> element 
+        // based on either the <option value> or the option's inner text
+        if (el.nodeName === "SELECT" && el.type === "select-one") {
+            for(var i = 0; i < el.options.length; i++)if (el.options[i].value == value || el.options[i].innerText.toLowerCase().replace("s", "") === value.toLowerCase().replace("s", "")) {
+                el.selectedIndex = i;
+                break;
+            }
+        }
     }
     function setDataOnInputsOnTarget(event, targetElement, taggedInputText, fakerObj) {
-        var inputMapping = ikaInstance.generateMappingFromInputs(targetElement);
+        var inputMapping = ikaInstance.generateMappings(targetElement);
         var parsed = ikaInstance.parseMapping(taggedInputText, inputMapping);
         if (parsed == null) return false;
         for (var [el, value] of parsed)__ikaSetInputValue(el, value, fakerObj);
@@ -159,8 +192,8 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementsByTagName("body")[0].appendChild(ikaParentNode);
         function onResize(event) {
             if (ikaParentNode) {
-                ikaParentNode.style.bottom = "0";
-                ikaParentNode.style.right = "0";
+                ikaParentNode.style.bottom = "0px";
+                ikaParentNode.style.right = "0px";
             }
         }
         window.addEventListener("resize", onResize);

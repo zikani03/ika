@@ -36,47 +36,58 @@
         <form name="firstForm">
             <div class="control">
                 <label for="firstname">Firstname</label>
-                <input type="text" name="firstName" id="firstName" class="input is-primary" no-ika="firstName" />
+                <input type="text" name="firstName" id="firstName" class="input is-primary" data-ika="firstName" />
             </div>
             <div class="control">
                 <label for="lastname">Lastname</label>
-                <input type="text" name="lastName" id="lastName" class="input is-primary" no-ika="lastName">
+                <input type="text" name="lastName" id="lastName" class="input is-primary" data-ika="lastName">
             </div>
             <div class="control">
                 <label for="dob">Date Of Birth</label>
-                <input type="text" name="dateOfBirth" id="dateOfBirth" class="input is-primary" no-ika="dob">
+                <input type="text" name="dateOfBirth" id="dateOfBirth" class="input is-primary" data-ika="dob">
             </div>
             <div class="control">
                 <label for="eyecolor">Eye Color</label>
-                <input type="text" name="eyeColor" id="eyeColor" class="input is-primary" no-ika="eyes">
+                <input type="text" name="eyeColor" id="eyeColor" class="input is-primary" data-ika="eyes">
             </div>
             <div class="control">
                 <label for="languages">Gender</label>
                 <p>
-                    <label class="label"><input type="radio" name="gender" value="Male" no-ika="male"> Male</label>
-                    <label class="label"><input type="radio" name="gender" value="Female" no-ika="female"> Female</label>
-                    <label class="label"><input type="radio" name="gender" value="Not telling" no-ika="genderNone"> Not Saying</label>
+                    <label class="label"><input type="radio" name="gender" value="Male" data-ika="male"> Male</label>
+                    <label class="label"><input type="radio" name="gender" value="Female" data-ika="female"> Female</label>
+                    <label class="label"><input type="radio" name="gender" value="Not telling" data-ika="genderNone"> Not Saying</label>
                 </p>
             </div>
             <div class="control">
                 <label for="languages">Languages</label>
                 <p>
-                    <label class="label"><input type="checkbox" name="languages[]" value="java" no-ika="java"> Java</label>
-                    <label class="label"><input type="checkbox" name="languages[]" value="python" no-ika="python"> Python</label>
-                    <label class="label"><input type="checkbox" name="languages[]" value="go" no-ika="go"> Go</label>
+                    <label class="label"><input type="checkbox" name="languages[]" value="java" data-ika="java"> Java</label>
+                    <label class="label"><input type="checkbox" name="languages[]" value="python" data-ika="python"> Python</label>
+                    <label class="label"><input type="checkbox" name="languages[]" value="go" data-ika="go"> Go</label>
                 </p>
             </div>
+            
+            <div class="control">
+                <label for="editor">Editor or IDE</label>
+                <select name="editor">
+                    <option value="nvim">Neovim</option>
+                    <option value="vscode">VS Code</option>
+                    <option value="idea">JetBrains IntelliJ IDEA</option>
+                    <option value="xcode">XCode</option>
+                </select>
+            </div>
+
             <button class="button is-success">Submit</button>
         </form>
 
         <form name="secondForm">
             <div class="control">
                 <label for="firstname">Firstname</label>
-                <input type="text" name="firstName" id="firstName" class="input is-primary" no-ika="firstName" />
+                <input type="text" name="firstName" id="firstName" class="input is-primary" data-ika="firstName" />
             </div>
             <div class="control">
                 <label for="lastname">Lastname</label>
-                <input type="text" name="lastName" id="lastName" class="input is-primary" no-ika="lastName">
+                <input type="text" name="lastName" id="lastName" class="input is-primary" data-ika="lastName">
             </div>
             <button class="button is-success">Submit</button>
         </form>
