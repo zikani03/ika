@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (value && (value == "1" || value.toLowerCase() == "y")) {
                 el.setAttribute("checked", "checked");
             }
-        } 
+        }
 
         if (typeof (value) === 'function') {
             el.setAttribute("value", value(el) || '');
@@ -31,10 +31,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 el.setAttribute("value", value);
             }
         }
+
+        // Set the selected element of a <select> element 
+        // based on either the <option value> or the option's inner text
+        if (el.nodeName === "SELECT" && el.type === "select-one") {
+            for (var i = 0; i < el.options.length; i++) {
+                if (el.options[i].value == value || el.options[i].innerText.toLowerCase().replace('\s', '') === value.toLowerCase().replace('\s', '')) {
+                    el.selectedIndex = i;
+                    break;
+                }
+            }
+        }
     }
 
     function setDataOnInputsOnTarget(event: Event, targetElement: HTMLFormElement | Document, taggedInputText: string, fakerObj: any) {
-        var inputMapping = ikaInstance.generateMappingFromInputs(targetElement);
+        var inputMapping = ikaInstance.generateMappings(targetElement);
         var parsed = ikaInstance.parseMapping(taggedInputText, inputMapping);
 
         if (parsed == null) {

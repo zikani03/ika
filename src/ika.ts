@@ -22,6 +22,18 @@ export default class Ika {
      * 
      * @return WeakMap with mapping of tag to input element 
      */
+    generateMappings(formEl): any {
+        this.generateMappingFromInputs(formEl)
+        this.generateMappingFromSelects(formEl)
+
+        return this._inputTagMap;
+    }
+
+    /**
+     * Generates mapping of tag to an input element.
+     * 
+     * @return WeakMap with mapping of tag to input element 
+     */
     generateMappingFromInputs(formEl): any {
         const inputList: any = formEl.getElementsByTagName("input");
         let tagName: string | null = null;
@@ -41,6 +53,34 @@ export default class Ika {
                 continue;
             }
             this._inputTagMap[tagName!] = inputField
+        }
+
+        return this._inputTagMap;
+    }
+
+    /**
+     * Generates mapping of tag to an input element.
+     * 
+     * @return WeakMap with mapping of tag to input element 
+     */
+    generateMappingFromSelects (formEl): any {
+        const selectsList: any = formEl.getElementsByTagName("select");
+        let tagName: string | null = null;
+
+        for (var e of selectsList) {
+            let selectControl: HTMLSelectElement = e
+
+            if (selectControl.hasAttribute("data-ika")) {
+                tagName = selectControl.getAttribute("data-ika");
+            } else {
+                tagName = selectControl.getAttribute("name");
+            }
+
+            if (this._inputTagMap[tagName!]) {
+                // already exists, skip it?
+                continue;
+            }
+            this._inputTagMap[tagName!] = selectControl
         }
 
         return this._inputTagMap;
