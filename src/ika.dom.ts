@@ -35,10 +35,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // Set the selected element of a <select> element 
         // based on either the <option value> or the option's inner text
         if (el.nodeName === "SELECT" && el.type === "select-one") {
+            let selectedIndex = -1;
             for (var i = 0; i < el.options.length; i++) {
                 if (el.options[i].value == value || el.options[i].innerText.toLowerCase().replace('\s', '') === value.toLowerCase().replace('\s', '')) {
                     el.selectedIndex = i;
+                    selectedIndex = i;
                     break;
+                }
+            }
+
+            if (selectedIndex === -1) {
+                try {
+                    let parsedIndex = parseInt(value.trim(), 10) 
+                    el.selectedIndex = parsedIndex - 1
+                } catch(e) {
+                    // swallow the error, since this was a fallback anyways
+                    console.error(`could not set selected value for input ${el.name}, failed to parse ${value} as option value or text or actual index`)
                 }
             }
         }
