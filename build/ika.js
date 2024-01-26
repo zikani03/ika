@@ -207,12 +207,29 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         window.addEventListener("resize", onResize);
     }
+    function generatePlaceholderForForms() {
+        const placeholder = new Set();
+        for (var [formName, _] of Object.entries(window.ikaConfig.forms)){
+            if (formName === "*") continue;
+            let el = document.querySelector(formName);
+            if (el) {
+                console.log(el);
+                var inputMapping = ikaInstance.generateMappings(el);
+                for (let [tagName, _] of Object.entries(inputMapping))placeholder.add(`${tagName}:`);
+            }
+        }
+        let tags = [];
+        placeholder.forEach((e)=>tags.push(e));
+        return tags.join("	");
+    }
     if (ikaParentNode) {
         var wrap = document.createElement("div");
         wrap.setAttribute("id", "nndi--ika-control");
+        const placeholder = "Use tags here or leave empty for auto-fill. The following tags are available;\n" + generatePlaceholderForForms();
         var ikaTxt = document.createElement("textarea");
         ikaTxt.setAttribute("id", "nndi--ika-txt");
-        ikaTxt.setAttribute("placeholder", "use tags here or leave empty for auto-fill");
+        ikaTxt.setAttribute("placeholder", placeholder);
+        ikaTxt.setAttribute("title", placeholder);
         ikaTxt.setAttribute("contenteditable", "true");
         ikaTxt.setAttribute("tabindex", "1");
         var ikaBtn = document.createElement("button");
