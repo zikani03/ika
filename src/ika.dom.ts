@@ -170,13 +170,38 @@ document.addEventListener("DOMContentLoaded", function () {
         window.addEventListener('resize', onResize)
     }
 
+    function generatePlaceholderForForms(): string {
+        const placeholder: Set<string> = new Set();
+        
+        for (var [formName, _] of Object.entries(window.ikaConfig.forms)) {
+            if (formName === '*') {
+                // skip the catch all first - only run it when no pages are defined on the page
+                continue;
+            }
+            let el = document.querySelector(formName) as HTMLFormElement | null;
+            if (el) {
+                console.log(el)
+                var inputMapping = ikaInstance.generateMappings(el);
+                for (let [tagName, _] of Object.entries(inputMapping)) {
+                    placeholder.add(`${tagName}:`)
+                }
+            }
+        }
+        
+        let tags: string[] = []
+        placeholder.forEach((e) => tags.push(e))
+        return tags.join('\t')
+    }
+
     if (ikaParentNode) {
         var wrap = document.createElement("div");
         wrap.setAttribute("id", "nndi--ika-control");
 
-        var ikaTxt = document.createElement("textarea")
+        const placeholder = "Use tags here or leave empty for auto-fill. The following tags are available;\n" + generatePlaceholderForForms();
+        var ikaTxt = document.createElement("textarea");
         ikaTxt.setAttribute("id", "nndi--ika-txt");
-        ikaTxt.setAttribute("placeholder", "use tags here or leave empty for auto-fill")
+        ikaTxt.setAttribute("placeholder", placeholder)
+        ikaTxt.setAttribute("title", placeholder)
         ikaTxt.setAttribute("contenteditable", "true");
         ikaTxt.setAttribute("tabindex", "1");
 
