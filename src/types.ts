@@ -1,9 +1,9 @@
 export type IkaFakerOptions = {
-    [key: string]: String | ((x: any) => string)
+    [key: string]: String | ((x: any, faker: any) => string)
 };
 
 export type IkaForm = {
-    [key: string]: IkaFakerOptions;
+    [key: string]: any
 };
 
 /**
@@ -14,11 +14,12 @@ export type IkaForm = {
 export type IkaConfig = {
     faker: any,
     floatingButton: Boolean,
-    forms: { string: IkaForm }
+    forms: { [key: string]: IkaForm }
 }
 
 declare global {
     interface Window {
         ikaConfig: IkaConfig,
+        faker: any,
     }
 }

@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "ika.js",
+    "version": "0.2.0",
+    "description": "Turn regular users into power users",
+    "action": {
+        "default_popup": "ext/chrome/popup.html"
+    },
+    "permissions": ["scripting"],
+    "content_scripts": [
+        { 
+            "css": [ "build/ika.css"],
+            "js": [ "build/ika.dom.js" ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}

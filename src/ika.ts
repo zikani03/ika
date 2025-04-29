@@ -40,14 +40,12 @@ export default class Ika {
 
         for (var e of inputList) {
             let inputField: HTMLInputElement = e
-
+            
+            // TODO: for checkboxes, radios and select options use the value as the tagName if possible.
+            tagName = inputField.getAttribute("name");
             if (inputField.hasAttribute("data-ika")) {
                 tagName = inputField.getAttribute("data-ika");
-            } else {
-                // TODO: for checkboxes, radios and select options use the value as the tagName if possible.
-                tagName = inputField.getAttribute("name");
             }
-
             if (this._inputTagMap[tagName!]) {
                 // already exists, skip it?
                 continue;

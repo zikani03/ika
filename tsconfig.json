@@ -2,13 +2,14 @@
     "compilerOptions": {
         "module": "ESNext",
         "outDir": "build",
-        "moduleResolution": "node",
-        "target": "ES2017"
+        "moduleResolution": "nodenext",
+        "target": "es2017"
     },
-    "files": [
-        "src/**.ts",
-        // "ika.dom.ts",
-    ],
+    // "files": [
+    //     // "src/**.ts",
+    //     // "src/**/*.ts",
+    //     // "ika.dom.ts",
+    // ],
     "exclude": [
         "node_modules",
         "build",
